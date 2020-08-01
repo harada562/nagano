@@ -1,0 +1,36 @@
+<h1>ジャンル一覧・追加</h1>
+<%= form_for(@genre, url: admin_genres_path) do |f| %>
+	<h2>ジャンル</h2>
+	<%= f.text_field :name%>
+	<h2>販売ステータス</h2>
+	<h3>有効</h3>
+	 <%= f.radio_button :is_active, [false] %>
+	 <h3>無効</h3>
+	 <%= f.radio_button :is_active, [true] %>
+
+	<%= f.submit "追加" %>
+<% end %>
+
+<table>
+	<tr>
+		<th>ジャンル</th>
+		<th>状態</th>
+	</tr>
+	<tr>
+		<% @genres.each do |i|%>
+			<td><%= i.name %></td>
+			 <td>
+				 <% if  i.is_active == false %>
+				 	有効
+				 <% else %>
+				 	無効
+				 <% end %>
+			 </td>
+			<td>
+				<%= link_to edit_admin_genre_path(i.id) do %>
+				編集
+			</td>
+			<% end %>
+	</tr>
+		<% end %>
+</table>

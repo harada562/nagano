@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head lang="jp">
+    <meta charset="utf-8">
     <title>DwcRailsAppTemplate</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +11,23 @@
   </head>
 
   <body>
+    <header>
+      <h1>LOGO</h1>
+      <% if customer_signed_in? %>
+          ようこそ<%= current_customer.first_name %>さん！
+          <%= link_to 'マイページ'%>
+          <%= link_to '商品一覧', admin_items_path%>
+          <%= link_to 'カート'%>
+          <%= link_to 'ログアウト',  destroy_customer_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'About', home_about_path %>
+          <%= link_to '商品一覧'%>
+          <%= link_to '新規登録', new_customer_registration_path %>
+          <%= link_to 'ログイン', new_customer_session_path%>
+      <% end %>
+    </header>
     <%= yield %>
+
+
   </body>
 </html>

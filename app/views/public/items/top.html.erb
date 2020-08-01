@@ -1,0 +1,30 @@
+<p>ようこそ、NaganoCakeへ!<br>
+	このサイトは、ケーキ販売のECサイトになります。<br>
+	会員でない方も商品の閲覧はできますが、<br>
+	購入には会員登録が必要になります。</p>
+
+<h1>オススメ商品</h1>
+
+	<table>
+			<% @items.each do |i|%>
+		<tr>
+			<td><%= attachment_image_tag i, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<td><%= i.name %></td>
+		</tr>
+		<tr>
+			<th>税抜き価格</th>
+				<td><%= i.price %></td>
+		</tr>
+		<tr>
+			<th>ジャンル</th>
+			<td><%= i.genre.name %></td>
+		</tr>
+		<tr>
+			<th>ステータス</th>
+			<td><%= i.is_active %></td>
+		</tr>
+			<% end %>
+	</table>
