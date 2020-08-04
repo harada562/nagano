@@ -1,0 +1,12 @@
+<%= render 'layouts/customer_header' %>
+<h1>注文情報入力</h1>
+<%= form_for(@neworder, url: public_order_confirm_path ) do |f| %>
+	<h1>支払い方法</h1>
+	<h2>クレジットカード</h2>
+		<%= f.radio_button :total_payment, [0] %>
+	<h2>銀行</h2>
+		<%= f.radio_button :total_payment, [1] %>
+	<h2>お届け先</h2>
+		<%= f.collection_select :customer_id, Customer.all, :id, :address %>
+<% end %>
+<%= link_to '確認画面', public_order_confirm_path(@order)%>

@@ -1,6 +1,6 @@
-<%= render 'layouts/amin_header' %>
+<%= render 'layouts/customer_header' %>
 <h1><%= @customer.first_name%><%= @customer.last_name%>さんの会員情報編集</h1>
-<%= form_for(@customer, url: admin_customer_path) do |f| %>
+<%= form_for(@customer, url: public_customer_path) do |f| %>
 
 	 <div class="field">
     <%= f.label :名前 %>
@@ -38,16 +38,10 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="is_active">
-    <h3>有効</h3>
-    <%= f.radio_button :is_deleted, [false] %>
-    <h3>退会済み</h3>
-    <%= f.radio_button :is_deleted, [true] %>
-  </div>
-
   <div class="actions">
-    <%= f.submit "変更を保存する" %>
+    <%= f.submit "編集内容を保存する" %>
   </div>
 
 
 <% end %>
+<%= link_to '退会', public_customer_comfirm_path(@customer)%>

@@ -1,17 +1,17 @@
+<%= render 'layouts/amin_header' %>
 <h1><%= @customer.first_name%><%= @customer.last_name%>さんの会員詳細</h1>
 <table>
 	<tr>
 		<th>顧客ID</th>
 		<td><%= @customer.id %>
 			<% if @customer.is_deleted == true %>
-				有効会員
-			<% else %>
 				退会済み
+			<% else %>
+				有効会員
 			<% end %>
 		</td>
 	</tr>
 	<tr>
-		
 		<th>氏名</th>
 		<td><%= @customer.first_name%><%= @customer.last_name%></td>
 	</tr>

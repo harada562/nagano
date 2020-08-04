@@ -7,13 +7,11 @@ Rails.application.routes.draw do
   	devise_for :customers
 
   	namespace :admin do
-		resources :items
-		resources :customers
-		resources :genres
-		resources :cart_items
-		resources :orders
-		resources :order_ditails
-		resources :addresses
+		resources :items, only: [:index, :new, :create, :show, :edit, :update]
+		resources :customers, only: [:index, :show, :edit, :update]
+		resources :genres, only: [:index, :creaet, :edit, :update]
+		resources :orders, only: [:index, :show, :update]
+		resources :order_ditails, only: [:update]
 		# admin のtopページ
 		# 注文件数が書かれているページ
 		get 'oeder/top', to:'orders#top'
@@ -21,12 +19,16 @@ Rails.application.routes.draw do
 
 	namespace :public do
 		get 'item/top', to:'items#top'
+		get 'order/thanks', to:'orders#thanks'
+		get 'order/confirm', to:'orders#confirm'
+		post 'order/:id/confirm', to:'orders#confirm'
+		get 'customer/comfirm', to:'customers#comfirm'
+		put "/customers/:id/hide" => "customers#hide", as: 'customers_hide'
+		# カート全削除追加
 		resources :customers
-		resources :items, only: [:index, :show]
-		resources :genres, only: [:index]
-		resources :cart_items
-		resources :orders, only: [:index]
-		resources :order_ditails, only: [:index]
-		resources :addresses, only: [:index]
+		resources :items, only:[:index, :show]
+		resources :cart_items, only:[:index, :update, :destroy, :create]
+		resources :orders, only:[:new, :create, :index, :show]
+		resources :addresses,only:[:index, :edit, :create, :update, :destroy]
 	end
 end

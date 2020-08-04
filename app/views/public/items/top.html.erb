@@ -1,10 +1,10 @@
+<%= render 'layouts/customer_header' %>
 <p>ようこそ、NaganoCakeへ!<br>
 	このサイトは、ケーキ販売のECサイトになります。<br>
 	会員でない方も商品の閲覧はできますが、<br>
 	購入には会員登録が必要になります。</p>
 
 <h1>オススメ商品</h1>
-
 	<table>
 			<% @items.each do |i|%>
 		<tr>
@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<th>商品名</th>
-			<td><%= i.name %></td>
+			<td><%= link_to i.name,  public_item_path(i.id)%></td>
 		</tr>
 		<tr>
 			<th>税抜き価格</th>
@@ -21,10 +21,6 @@
 		<tr>
 			<th>ジャンル</th>
 			<td><%= i.genre.name %></td>
-		</tr>
-		<tr>
-			<th>ステータス</th>
-			<td><%= i.is_active %></td>
 		</tr>
 			<% end %>
 	</table>

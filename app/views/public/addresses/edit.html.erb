@@ -1,0 +1,18 @@
+<%= render 'layouts/customer_header' %>
+<h1>配送先編集</h1>
+,<%= form_for(@addresse, url:public_address_path ) do |f|%>
+<div>
+	<%= f.hidden_field :customer_id, :value => current_customer.id %>
+	<h2>郵便番号</h2>
+	<%= f.text_field :postal_code %>
+
+	<h2>住所</h2>
+	<%= f.text_field :address %>
+
+	<h2>宛名</h2>
+	<%= f.text_field :name %>
+</div>
+<div>
+	<%= f.submit '配送先追加' %>
+</div>
+<% end %>

@@ -1,3 +1,4 @@
+<%= render 'layouts/amin_header' %>
 <h1>商品編集</h1>
 <%= attachment_image_tag @item, :image, :fill, 60, 60, fallback: "", size:'100x100'%>
 <%= form_for(@item, url: admin_item_path) do |f| %>

@@ -8,6 +8,8 @@ class Public::ItemsController < ApplicationController
 	end
 
 	def show
+		@items = CartItem.new
 		@item = Item.find(params[:id])
+		@customer = current_customer
 	end
 end

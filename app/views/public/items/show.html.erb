@@ -1,3 +1,4 @@
+<%= render 'layouts/customer_header' %>
 <h1>商品詳細</h1>
 <%= attachment_image_tag @item, :image, :fill, 60, 60, fallback: "", size:'100x100'%>
 <table>
@@ -12,18 +13,16 @@
 	</tr>
 
 	<tr>
-		<th>ジャンル</th>
-		<td><%= @item.genre.name%></td>
-	</tr>
-
-	<tr>
 		<th>税込価格</th>
 		<td><%= @item.price%>円</td>
 	</tr>
 
-	<tr>
-		<th>販売ステータス</th>
-		<td><%= @item.is_active %></td>
-	</tr>
 </table>
-<%= link_to 'カートに追加', public_cart_items_path(@item.id) %>
+<%= form_for(@items, url: public_cart_items_path(@item.id, @customer.id), method: :post) do |f| %>
+	<!-- hidden_fieldは実際に画面に表示せずにデータを持たせる -->
+	<!-- item_idが保存したいカラム名,valueがitem_idにいれたいデータのこと -->
+	<%= f.hidden_field :item_id, :value => @item.id %>
+	<%= f.hidden_field :customer_id, :value => @customer.id %>
+	<%= f.select :amount, [1,2,3,4,5,6,7,8,9,10] %>
+	<%= f.submit %>
+<% end %>
