@@ -1,2 +1,14 @@
-<%= link_to "購入する", public_orders_confirm_path, method: :post %>
-<%= link_to "購入しない", root_path %>
+<%= render 'layouts/customer_header' %>
+<h1>注文情報入力</h1>
+<%= form_for(@order, url: public_order_confirm_path(@order)) do |f| %>
+	<%= f.hidden_field :customer_id %>
+	<%= f.hidden_field :postal_code %>
+	<%= f.hidden_field :address %>
+	<%= f.hidden_field :name %>
+	<%= f.hidden_field :shipping_cost %>
+	<%= f.hidden_field :total_payment %>
+	<%= f.hidden_field :payment_method %>
+	<%= f.hidden_field :status %>
+
+		<%= f.submit %>
+<% end %>

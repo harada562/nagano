@@ -1,19 +1,20 @@
 class Order < ApplicationRecord
 
+
 	belongs_to :customer
 	has_many :order_details, dependent: :destroy
 
-	enum total_payment: {
-		credit_card: 0,
-		Bank: 1
-	}
+	enum payment_method: { クレジットカード:0, 銀行:1 }
 
 	enum status: {
-		waiting_for_payment: 0,
-		payment_check: 1,
-		in_puroduction: 2,
-		preparation_for_shipment: 3,
-		completed_shipping: 4,
+		入金待ち:0,
+		入金確認:1,
+		制作中:2,
+		発送準備中:3,
+		発送済み:4
 	}
+
+# enum is_active: { 販売停止中:0, 販売中:1 }
+
 
 end

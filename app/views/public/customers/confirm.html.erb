@@ -8,7 +8,6 @@
 
 
 
-<!-- リンク文字退会、これをクリックするpublic_customers_hide_pathに現在の使用者の情報をもたせて移動する、メソッドはputである-->
-<!-- 移動する前にdate-comfirmを使いダイアナログを表示-->
 <%= link_to "退会しない", root_path %>
+<!-- リンク文字退会、これをクリックするpublic_customers_hide_pathに現在の使用者の情報をもたせて移動する、メソッドはputである-->
 <%= link_to "退会する", public_customers_hide_path(current_customer), method: :put %>

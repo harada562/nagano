@@ -13,7 +13,7 @@ class Public::CustomersController < ApplicationController
 		redirect_to public_customer_path
 	end
 
-	def comfrim
+	def confrim
 		@customer = current_customer
 	end
 

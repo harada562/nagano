@@ -1,7 +1,7 @@
 class Public::AddressesController < ApplicationController
 	def index
-		@addresse = Addresse.all
-		@newaddresse = Addresse.new
+		@addresse = Addresse.new
+		@addresses =  Addresse.all
 	end
 
 	def create

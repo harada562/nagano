@@ -21,14 +21,17 @@ Rails.application.routes.draw do
 		get 'item/top', to:'items#top'
 		get 'order/thanks', to:'orders#thanks'
 		get 'order/confirm', to:'orders#confirm'
-		post 'order/:id/confirm', to:'orders#confirm'
-		get 'customer/comfirm', to:'customers#comfirm'
+		get 'customer/confirm', to:'customers#confirm'
 		put "/customers/:id/hide" => "customers#hide", as: 'customers_hide'
 		# カート全削除追加
 		resources :customers
 		resources :items, only:[:index, :show]
 		resources :cart_items, only:[:index, :update, :destroy, :create]
-		resources :orders, only:[:new, :create, :index, :show]
 		resources :addresses,only:[:index, :edit, :create, :update, :destroy]
+		resources :orders, only:[:new, :create, :index, :show] do
+			collection do
+				post :confirm
+			end
+		end
 	end
 end
