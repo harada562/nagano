@@ -2,25 +2,27 @@
 <h1>商品一覧</h1>
 
 <table>
-		<% @items.each do |i|%>
-	<tr>
-		<td><%= attachment_image_tag i, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
-	</tr>
-	<tr>
-		<th>商品名</th>
-		<td><%= link_to i.name,  public_item_path(i.id)%></td>
-	</tr>
-	<tr>
-		<th>税抜き価格</th>
-		<td><%= i.price %></td>
-	</tr>
-	<tr>
-		<th>ジャンル</th>
-		<td><%= i.genre.name %></td>
-	</tr>
-	<tr>
-		<th>ステータス</th>
-		<td><%= i.is_active %></td>
-	</tr>
+	<% @items.each do |i|%>
+		<% if i.is_active == '販売中' %>
+			<tr>
+				<td><%= attachment_image_tag i, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
+			</tr>
+			<tr>
+				<th>商品名</th>
+				<td><%= link_to i.name,  public_item_path(i.id)%></td>
+			</tr>
+			<tr>
+				<th>税抜き価格</th>
+				<td><%= i.price %></td>
+			</tr>
+			<tr>
+				<th>ジャンル</th>
+				<td><%= i.genre.name %></td>
+			</tr>
+			<tr>
+				<th>ステータス</th>
+				<td><%= i.is_active %></td>
+			</tr>
 		<% end %>
+	<% end %>
 </table>
