@@ -11,56 +11,84 @@
 	</tr>
 	<tr>
 		<!-- @sumに０を代入 -->
-		<% @sum = 0%>
-		<!-- @cartsにはCurtItemモデルの全てを代入してある -->
-		<% current_customer.cart_items.each do |c|%>
 		<!-- カート内の商品名を表示 -->
-		<td><%= c.item.name%></td>
 		<!-- カート内の商品の値段を表示 -->
-		<td><%= c.item.price%></td>
-		<td><%= c.amount%></td>
 		<!-- @totalにpriceをamountの乗算を代入 -->
-		<% @total = c.item.price * c.amount%>
 		<!-- @totalを表示 -->
 		<!-- カート内の商品の値段と個数を乗算した小計を表示 -->
-		<td><%= @total %></td>
 		<!-- @sumに@totalの値を加算 -->
 		<!-- @sumにtotalpeiceが繰り返し処理される -->
-		<% @sum += @total %>
+			<% @sum = 0%>
+	<% current_customer.cart_items.each do |c|%>
+		<td><%= c.item.name%></td>
+		<td><%= c.item.price%></td>
+		<td><%= c.amount%></td>
+			<% @total = c.item.price * c.amount%>
+		<td><%= @total %></td>
+			<% @sum += @total %>
 	</tr>
-		<% end %>
+	<% end %>
 </table>
-<%= form_for(@order, url: public_orders_path) do |f| %>
-    <%= current_customer.address %>
-    <%= current_customer.first_name%><%= current_customer.last_name%>
+<%= form_for(@order, url: confirm_public_orders_path) do |f| %>
+  <!-- 自身の住所 -->
+  <!-- radio_button -->
+    <h2>
+      <%= radio_button_tag :add, 1, checked: true, checked: "checked" %>ご自身の住所<br>
+      <%= @customer.postal_code %>
+      <%= @customer.address %>
+      <%= @customer.first_name %><%= @customer.last_name %>
+    </h2>
+
+  <!-- 登録済み住所 -->
+      <!-- f.collection_select(メソッド名, オブジェクトの配列, value属性の項目, テキストの項目 [, オプション or HTML属性 or イベント属性]) -->
+      <%= radio_button_tag :add, 2 %>登録住所から選択<br>
+      <%= f.collection_select(:address, Addresse.all, :id, :name, {:address => "Please Select a Sector"}, {:multiple => true}) %>
+
+  <!-- 新しい住所 -->
+    <h2><%= radio_button_tag :add, 3 %>新しいお届け先<h2>
+      <%= f.fields_for :new_add do |na| %>
+        <p>郵便番号</p>
+          <%= na.text_field :post_code, class: 'form-control' %>
+        <p>住所</p>
+          <%= na.text_field :address, class: 'form-control' %>
+        <p>宛名</p>
+          <%= na.text_field :addressee, class: 'form-control' %>
+      <% end %>
+
+
+<!-- 配送料 一律[500円] -->
 	<h2>配送料</h2>
 		<% @delivery = 500 %>
 		<%= @delivery %>円
 
+
+<!-- 請求額 -->
+<!-- @sumが商品合計額 -->
+<!-- @deliveryが配送料（500円） -->
 	<h2>請求額</h2>
-		<!-- @sumが商品合計額 -->
-		<!-- @deliveryが配送料（500円） -->
 		<%= @sum + @delivery %>円
 		<% @totals = @sum + @delivery %>円
 
+<!-- 支払い方法 -->
+<!-- eunmで定義[0]がクレジットカード -->
+<!-- eunmで定義[1]が銀行 -->
 	<h2>支払い方法</h2>
 	<h3>クレジットカード</h3>
-	<!-- eunmで定義[0]がクレジットカード -->
 		<%= f.radio_button :payment_method, ['クレジットカード'] %>
 	<h3>銀行</h3>
-		<!-- eunmで定義[1]が銀行 -->
 		<%= f.radio_button :payment_method, ['銀行'] %>
+
+<!-- hiddenエリア -->
+<!-- shipping_costを代入 -->
+<!-- 初期ステータスを代入 -->
+<!-- トータル金額を代入 -->
+<!-- statusは入金待ち[0]を代入 -->
 	<%= f.hidden_field :customer_id, :value => current_customer.id %>
-	<%= f.hidden_field :address, :value => current_customer.address %>
-	<%= f.hidden_field :postal_code, :value => current_customer.postal_code %>
-	<%= f.hidden_field :name, :value => current_customer.first_name %>
-	<!-- shipping_costを代入 -->
 	<%= f.hidden_field :shipping_cost, :value => @delivery %>
-	<!-- 初期ステータスを代入 -->
 	<%= f.hidden_field :status, :value => ['入金待ち'] %>
-	<!-- トータル金額をデータ代入 -->
 	<%= f.hidden_field :total_payment, :value => @totals %>
 
-	<!-- 上記のデータをorder :createに送信 -->
+
+<!-- 上記のデータをorder :createに送信 -->
 	<%= f.submit %>
 <% end %>

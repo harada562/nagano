@@ -10,11 +10,10 @@
 	</tr>
 	<tr>
 		<% @orders.each do |i|%>
-			<td><%= i.created_at %></td>
-			<td><%= i.name %></td>
-			<td><%= i.price %></td>
-			<td><%= i.genre.name %></td>
-			<td><%= i.is_active %></td>
+			<td><%= link_to i.created_at,  admin_order_path(i.id)%></td>
+			<td><%= i.customer.first_name %><%= i.customer.last_name%></td>
+			<td></td>
+			<td><%= i.status %></td>
 	</tr>
 		<% end %>
 </table>

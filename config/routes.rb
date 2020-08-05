@@ -20,7 +20,6 @@ Rails.application.routes.draw do
 	namespace :public do
 		get 'item/top', to:'items#top'
 		get 'order/thanks', to:'orders#thanks'
-		get 'order/confirm', to:'orders#confirm'
 		get 'customer/confirm', to:'customers#confirm'
 		put "/customers/:id/hide" => "customers#hide", as: 'customers_hide'
 		delete "cart_item/:id/destroy_all", to: "cart_items#destroy_all"
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
 		resources :orders, only:[:new, :create, :index, :show] do
 			collection do
 				post :confirm
+				get :confirm
 			end
 		end
 	end
