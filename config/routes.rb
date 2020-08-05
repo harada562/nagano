@@ -23,11 +23,15 @@ Rails.application.routes.draw do
 		get 'order/confirm', to:'orders#confirm'
 		get 'customer/confirm', to:'customers#confirm'
 		put "/customers/:id/hide" => "customers#hide", as: 'customers_hide'
-		# カート全削除追加
+		delete "cart_item/:id/destroy_all", to: "cart_items#destroy_all"
 		resources :customers
 		resources :items, only:[:index, :show]
-		resources :cart_items, only:[:index, :update, :destroy, :create]
 		resources :addresses,only:[:index, :edit, :create, :update, :destroy]
+		resources :cart_items, only:[:index, :update, :destroy, :create, :delete] do
+					collection do
+				delete 'destroy_all'
+			end
+		end
 		resources :orders, only:[:new, :create, :index, :show] do
 			collection do
 				post :confirm
