@@ -9,12 +9,12 @@ Rails.application.routes.draw do
   	namespace :admin do
 		resources :items, only: [:index, :new, :create, :show, :edit, :update]
 		resources :customers, only: [:index, :show, :edit, :update]
-		resources :genres, only: [:index, :creaet, :edit, :update]
+		resources :genres, only: [:index, :create, :edit, :update]
 		resources :orders, only: [:index, :show, :update]
 		resources :order_ditails, only: [:update]
 		# admin のtopページ
 		# 注文件数が書かれているページ
-		get 'oeder/top', to:'orders#top'
+		get 'order/top', to:'orders#top'
 	end
 
 	namespace :public do
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 		resources :orders, only:[:new, :create, :index, :show] do
 			collection do
 				post :confirm
-				get :confirm
+				get :complete
 			end
 		end
 	end

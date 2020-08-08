@@ -18,7 +18,7 @@ class Admin::ItemsController < ApplicationController
 		# 保存できない場合はfalseが返る
 		if @item.save
 		 # binding.pry
-		redirect_to admin_items_path
+		redirect_to admin_item_path(@item.id)
 		else
 		 render :new
 		end

@@ -11,7 +11,7 @@ end
 def after_sign_in_path_for(resource)
   case resource
   when Admin
-    admin_oeder_top_path
+    admin_order_top_path
   when Customer
     public_item_top_path
   end
@@ -19,7 +19,11 @@ end
 
 # ログアウト後のリダイレクト先
 def after_sign_out_path_for(resource)
+  if resource == :admin
+    new_admin_session_path
+  else
     public_item_top_path
+  end
 end
 
 protected

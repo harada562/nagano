@@ -6,21 +6,53 @@
 
 <h1>オススメ商品</h1>
 	<table>
-			<% @items.each do |i|%>
 		<tr>
-			<td><%= attachment_image_tag i, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
+			<td><%= attachment_image_tag @item1, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
 		</tr>
 		<tr>
 			<th>商品名</th>
-			<td><%= link_to i.name,  public_item_path(i.id)%></td>
+			<td><%= link_to @item1.name,  public_item_path(@item1.id)%></td>
 		</tr>
 		<tr>
 			<th>税抜き価格</th>
-				<td><%= i.price %></td>
+				<td><%= @item1.price %></td>
 		</tr>
 		<tr>
 			<th>ジャンル</th>
-			<td><%= i.genre.name %></td>
+			<td><%= @item1.genre.name %></td>
 		</tr>
-			<% end %>
+	</table>
+	<table>
+		<tr>
+			<td><%= attachment_image_tag @item2, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<td><%= link_to @item2.name,  public_item_path(@item2.id)%></td>
+		</tr>
+		<tr>
+			<th>税抜き価格</th>
+				<td><%= @item2.price %></td>
+		</tr>
+		<tr>
+			<th>ジャンル</th>
+			<td><%= @item2.genre.name %></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td><%= attachment_image_tag @item3, :image, :fill, 60, 60, fallback: "", size:'100x100'%></td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<td><%= link_to @item3.name,  public_item_path(@item3.id)%></td>
+		</tr>
+		<tr>
+			<th>税抜き価格</th>
+				<td><%= @item3.price %></td>
+		</tr>
+		<tr>
+			<th>ジャンル</th>
+			<td><%= @item3.genre.name %></td>
+		</tr>
 	</table>

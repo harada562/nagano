@@ -18,20 +18,18 @@
 		<!-- カート内の商品の値段と個数を乗算した小計を表示 -->
 		<!-- @sumに@totalの値を加算 -->
 		<!-- @sumにtotalpeiceが繰り返し処理される -->
-			<% @sum = 0%>
+	<% @sum = 0%>
 	<% current_customer.cart_items.each do |c|%>
 		<td><%= c.item.name%></td>
-		<td><%= c.item.price%></td>
-		<td><%= c.amount%></td>
+		<td><%= c.item.price%>円</td>
+		<td><%= c.amount%>個</td>
 			<% @total = c.item.price * c.amount%>
-		<td><%= @total %></td>
+		<td><%= @total %>円</td>
 			<% @sum += @total %>
 	</tr>
 	<% end %>
 </table>
-<%= form_for(@order, url: confirm_public_orders_path) do |f| %>
-  <!-- 自身の住所 -->
-  <!-- radio_button -->
+<%= form_for(@order, url: public_orders_path(@order.id)) do |f| %>
     <h2>
       <%= radio_button_tag :add, 1, checked: true, checked: "checked" %>ご自身の住所<br>
       <%= @customer.postal_code %>
@@ -40,20 +38,19 @@
     </h2>
 
   <!-- 登録済み住所 -->
-      <!-- f.collection_select(メソッド名, オブジェクトの配列, value属性の項目, テキストの項目 [, オプション or HTML属性 or イベント属性]) -->
+      <!-- f.select(メソッド名, 現在のcustomerのidに紐づくAddressseモデル,map.{|a|の中に紐づくデータが入る。そのあとの記述は送信したいデータの指定} -->
       <%= radio_button_tag :add, 2 %>登録住所から選択<br>
-      <%= f.collection_select(:address, Addresse.all, :id, :name, {:address => "Please Select a Sector"}, {:multiple => true}) %>
+     <%= f.select :address, Addresse.where(customer_id: current_customer.id).map { |a| [a.postal_code + a.address + a.name, a.id]} %>
+
 
   <!-- 新しい住所 -->
     <h2><%= radio_button_tag :add, 3 %>新しいお届け先<h2>
-      <%= f.fields_for :new_add do |na| %>
         <p>郵便番号</p>
-          <%= na.text_field :post_code, class: 'form-control' %>
+          <%= f.text_field :postal_code, class: 'form-control' %>
         <p>住所</p>
-          <%= na.text_field :address, class: 'form-control' %>
+          <%= f.text_field :address, class: 'form-control' %>
         <p>宛名</p>
-          <%= na.text_field :addressee, class: 'form-control' %>
-      <% end %>
+          <%= f.text_field :name, class: 'form-control' %>
 
 
 <!-- 配送料 一律[500円] -->

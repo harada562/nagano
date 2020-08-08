@@ -14,7 +14,7 @@
 	<!-- collection_selectは紐づけしているFK(genre_id)を指定することでGenreモデルの中に入ることが出来る,
 	そして Genreモデルのデータをすべて取り出し,
 	vlue属性にgenresテーブルのidを入れ
-	text項目にgenresテーブルのnameを入れることが出来る-->
+	text項目にgenresテーブルのジャンルのnameを表示することができる-->
 	<!-- Genre.allの後はすべてgenreモデルのデータのことを示している -->
 	<%= f.collection_select :genre_id, Genre.all, :id, :name %>
 	<h2>税抜価格</h2>
