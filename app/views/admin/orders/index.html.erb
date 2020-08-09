@@ -12,7 +12,9 @@
 		<% @orders.each do |i|%>
 			<td><%= link_to i.created_at,  admin_order_path(i.id)%></td>
 			<td><%= i.customer.first_name %><%= i.customer.last_name%></td>
-			<td></td>
+			<% i.order_details.each do |a|%>
+				<td><%=a.amount %></td>
+			<% end %>
 			<td><%= i.status %></td>
 	</tr>
 		<% end %>

@@ -1,4 +1,4 @@
-090<%= render 'layouts/customer_header' %>
+<%= render 'layouts/customer_header' %>
 <h1>マイページ</h1>
 <table>
 	<tr>
@@ -23,3 +23,5 @@
 	</tr>
 </table>
 <%= link_to '編集する', edit_public_customer_path(current_customer) %>
+<%= link_to '配送先', public_addresses_path(current_customer) %>
+<%= link_to '注文履歴', public_orders_path %>

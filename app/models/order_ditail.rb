@@ -3,9 +3,9 @@ class OrderDitail < ApplicationRecord
 	belongs_to :item
 
 	enum making_status: {
-		not_available: 0,
-		awaiting_production: 1,
-		in_puroduction: 2,
-		production_completed: 3,
+		制作不可: 0,
+		制作待ち: 1,
+		制作中: 2,
+		制作完了: 3,
 	}
 end

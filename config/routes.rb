@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 		end
 		resources :orders, only:[:new, :create, :index, :show] do
 			collection do
+				post :new, path: :new, as: :new, action: :back
 				post :confirm
 				get :complete
 			end

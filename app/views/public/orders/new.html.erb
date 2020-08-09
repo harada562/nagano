@@ -29,7 +29,7 @@
 	</tr>
 	<% end %>
 </table>
-<%= form_for(@order, url: public_orders_path(@order.id)) do |f| %>
+<%= form_for(@order, url: confirm_public_orders_path(@order.id)) do |f| %>
     <h2>
       <%= radio_button_tag :add, 1, checked: true, checked: "checked" %>ご自身の住所<br>
       <%= @customer.postal_code %>
@@ -40,7 +40,7 @@
   <!-- 登録済み住所 -->
       <!-- f.select(メソッド名, 現在のcustomerのidに紐づくAddressseモデル,map.{|a|の中に紐づくデータが入る。そのあとの記述は送信したいデータの指定} -->
       <%= radio_button_tag :add, 2 %>登録住所から選択<br>
-     <%= f.select :address, Addresse.where(customer_id: current_customer.id).map { |a| [a.postal_code + a.address + a.name, a.id]} %>
+     <%= f.select :id, Addresse.where(customer_id: current_customer.id).map { |a| [a.postal_code + a.address + a.name, a.id]} %>
 
 
   <!-- 新しい住所 -->
@@ -85,7 +85,5 @@
 	<%= f.hidden_field :status, :value => ['入金待ち'] %>
 	<%= f.hidden_field :total_payment, :value => @totals %>
 
-
-<!-- 上記のデータをorder :createに送信 -->
 	<%= f.submit %>
 <% end %>
