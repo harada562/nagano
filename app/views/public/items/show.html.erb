@@ -18,11 +18,11 @@
 	</tr>
 
 </table>
-<%= form_for(@items, url: public_cart_items_path(@item.id, @customer.id), method: :post) do |f| %>
+<%= form_for(@items, url: public_cart_items_path, method: :post) do |f| %>
 	<!-- hidden_fieldは実際に画面に表示せずにデータを持たせる -->
 	<!-- item_idが保存したいカラム名,valueがitem_idにいれたいデータのこと -->
 	<%= f.hidden_field :item_id, :value => @item.id %>
-	<%= f.hidden_field :customer_id, :value => @customer.id %>
+	<%= f.hidden_field :customer_id, :value => current_customer.id %>
 	<%= f.number_field :amount, value: 1 ,min:1, max:99 %>個
 	<%= f.submit %>
 <% end %>

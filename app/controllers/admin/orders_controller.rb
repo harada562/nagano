@@ -9,7 +9,7 @@ class Admin::OrdersController < ApplicationController
 	def show
 		@status = Order.new
 		@order = Order.find(params[:id])
-		@ditail = OrderDitail.new
+		@ditail = OrderDetail.new
 	end
 
 	def update
