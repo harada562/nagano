@@ -12,7 +12,10 @@ class Admin::OrdersController < ApplicationController
 
 	def update
 		@order = Order.find(params[:id])
-		@order.update(order_params)
+		@order_detail = @order.order_details.build
+		@order_detail.make_status = params[:order][:order_detail][:make_status]
+		binding.pry
+		@order.update(update_order_params)
 		redirect_to admin_order_path(@order.id)
 	end
 	private
@@ -20,5 +23,11 @@ class Admin::OrdersController < ApplicationController
 		params.require(:order).permit(
 			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status,
 			order_details_attributes: [:order_id, :item_id, :amount, :price, :make_status])
+	end
+
+	def update_order_params
+		params.require(:order).permit(
+			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status,
+			order_detail_attributes: [:order_id, :item_id, :amount, :price, :make_status])
 	end
 end

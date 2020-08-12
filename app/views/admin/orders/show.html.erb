@@ -22,6 +22,7 @@
 		<th>注文ステータス</th>
 		<td><%= form_for(@order, url:admin_order_path(@order.id)) do |f| %>
 			<%= f.select :status, [['入金待ち', '入金待ち'], ['入金確認', '入金確認'], ['制作中', '制作中'], ['発送準備中', '発送準備中'], ['発送済み', '発送済み']]%><%= f.submit '更新'%>
+			<% end %>
 		</td>
 	</tr>
 </table>
@@ -38,13 +39,14 @@
 			<td><%= order_detail.item.name%></td>
 			<td><%= order_detail.item.price%></td>
 			<td><%= order_detail.amount%>個</td>
-			<td><%= order_detail.price * order_item.amount %>円</td>
+			<td><%= order_detail.price * order_detail.amount %>円</td>
 
-		<% f.fields_for :order_details do |na| %>
-			<td><%= na.select :make_status, [['制作不可', 0], ['制作待ち', 1], ['制作中', 2], ['制作完了', 3]]%><%= na.submit '更新'%></td>
-		<% end %>
+			<%= form_for(order_detail, url:admin_order_detail_path(order_detail.id)) do |f| %>
+			<td>
+					<%= f.select :make_status, [['制作不可', '制作不可'],['制作待ち','制作待ち'],['制作中', '制作中'],['制作完了', '制作完了']]%><%= f.submit '更新'%>
+			</td>
+			<% end %>
 
 	</tr>
-		<% end %>
 		<% end %>
 </table>
