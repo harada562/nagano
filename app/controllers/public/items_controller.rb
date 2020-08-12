@@ -1,4 +1,5 @@
 class Public::ItemsController < ApplicationController
+	
 	def top
 		@item1 = Item.find(1)
 		@item2 = Item.find(2)

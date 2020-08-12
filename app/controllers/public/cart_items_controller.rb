@@ -1,4 +1,5 @@
 class Public::CartItemsController < ApplicationController
+	
 	def index
 		@carts = current_customer.cart_items.all
 		@cart = CartItem.new

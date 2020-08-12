@@ -1,4 +1,5 @@
 class Admin::GenresController < ApplicationController
+	before_action :authenticate_admin!, only: [:index, :create, :edit, :update]
 	def index
 		# 空のモデルを作成
 		@genre = Genre.new

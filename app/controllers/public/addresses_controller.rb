@@ -1,4 +1,6 @@
 class Public::AddressesController < ApplicationController
+	# ログインしているユーザーのみアクション可能
+	before_action :authenticate_customer!, only: [:index, :create, :edit, :update]
 	def index
 		@addresse = Addresse.new
 		@addresses =  Addresse.all

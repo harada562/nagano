@@ -4,7 +4,7 @@
 	<h2>注文情報</h2>
 	<tr>
 		<th>注文日</th>
-		<td><%= @order.created_at%></td>
+		<td><%= @order.created_at.to_s(:public_datetime_jp)%></td>
 	</tr>
 	<tr>
 		<th>配送先</th>
@@ -20,11 +20,31 @@
 	</tr>
 </table>
 
+
+<table>
+	<tr>
+		<th>商品名</th>
+		<th>単価</th>
+		<th>数量</th>
+		<th>小計</th>
+		<th>制作ステータス</th>
+	</tr>
+	<tr><% @sum = 0 %>
+		<% @order.order_details.each do |order_detail| %>
+			<td><%= order_detail.item.name%></td>
+			<td><%= order_detail.item.price%></td>
+			<td><%= order_detail.amount%>個</td>
+			<td><%= order_detail.price * order_detail.amount %>円</td>
+			<% @sum += order_detail.price * order_detail.amount%>
+			<td><%= order_detail.make_status%></td>
+	</tr>
+		<% end %>
+</table>
 <table>
 	<h2>請求情報</h2>
 	<tr>
 		<th>商品合計</th>
-		<td><%= @order.total_payment%>円</td>
+		<td><%= @sum %>円</td>
 	</tr>
 	<tr>
 		<th>配送料</th>
@@ -32,19 +52,6 @@
 	</tr>
 	<tr>
 		<th>ご請求額</th>
-		<td><%= @order.shipping_cost + @order.total_payment%>円</td>
-	</tr>
-</table>
-
-<table>
-	<h2>注文内容</h2>
-	<tr>
-		<th>商品</th>
-		<th>単価</th>
-		<th>個数</th>
-		<th>小計</th>
-	</tr>
-	<tr>
-		
+		<td><%= @order.shipping_cost + @sum%>円</td>
 	</tr>
 </table>

@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+	
 	def thanks
 	end
 
@@ -77,7 +78,7 @@ class Public::OrdersController < ApplicationController
 			order_detail.amount = cart_item.amount
 			order_detail.price = cart_item.item.price
 			order_detail.save
-			# cart_item.destroy #order_itemに情報を移したらcart_itemは消去
+			cart_item.destroy #order_itemに情報を移したらcart_itemは消去
 		end
 		@order.save
 		redirect_to complete_public_orders_path

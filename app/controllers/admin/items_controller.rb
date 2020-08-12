@@ -1,4 +1,5 @@
 class Admin::ItemsController < ApplicationController
+	before_action :authenticate_admin!
 	def index
 		# indexでは一覧を表示するため
 		# インスタンス変数kitemsにItemモデルの中にあるすべてののデータをを代入

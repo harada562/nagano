@@ -18,7 +18,6 @@
 <% end %>
 <table>
 	<tr>
-		<th>customerID</th>
 		<th>郵便番号</th>
 		<th>住所</th>
 		<th>宛名</th>
@@ -26,7 +25,6 @@
 	<% @addresses.each do |a| %>
 		<tr>
 		<% if a.customer.id == current_customer.id %>
-			<td><%=a.customer_id %></td>
 			<td><%=a.postal_code %></td>
 			<td><%=a.address %></td>
 			<td><%=a.name %></td>
