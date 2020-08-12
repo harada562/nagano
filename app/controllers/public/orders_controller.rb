@@ -9,7 +9,9 @@ class Public::OrdersController < ApplicationController
 
 	def new
 		@order = Order.new
-		# @address = Addresse.new
+		# orderとaddresseの空モデル作成
+		# addreseモデルが子モデルになる
+		# @order.build_address
 		@customer = current_customer
 	end
 
@@ -27,7 +29,9 @@ class Public::OrdersController < ApplicationController
 	          @order.address =  @address.address
 	          @order.name =  @address.name
 	    elsif @add == 3
-	    	# @addresse = Addresse.new(addresse_params)
+	    	@order.postal_code = params[:order][:addresse][:postal_code]
+        	@order.address = params[:order][:addresse][:address]
+        	@order.name = params[:order][:addresse][:name]
 	    end
 		return if @order.valid?
 		render :new
@@ -53,19 +57,41 @@ class Public::OrdersController < ApplicationController
 	          @order.address =  @address.address
 	          @order.name =  @address.name
 	    elsif @add == 3
-	    end
+	    	@order.postal_code = params[:order][:new_add][:postal_code]
+        	@order.address = params[:order][:new_add][:address]
+        	@order.name = params[:order][:new_add][:name]
+		end
+		if Addresse.find_by(address: @order.address).nil?
+	        @address = Addresse.new
+	        @address.postal_code = @order.postal_code
+	        @address.address = @order.address
+	        @address.name = @order.name
+	        @address.customer_id = current_customer.id
+	        @address.save
+      	end
+
+		current_customer.cart_items.each do |cart_item|
+			order_detail = @order.order_details.build
+			order_detail.order_id = @order.id
+			order_detail.item_id = cart_item.item_id
+			order_detail.amount = cart_item.amount
+			order_detail.price = cart_item.item.price
+			order_detail.save
+			# cart_item.destroy #order_itemに情報を移したらcart_itemは消去
+		end
 		@order.save
 		redirect_to complete_public_orders_path
 	end
 
 	def show
 		@order = Order.find(params[:id])
-		
 	end
 	def complete
 	end
 	private
 	def order_params
-		params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status)
+		params.require(:order).permit(
+			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status,
+			order_details_attributes: [:order_id, :item_id, :amount, :price, :make_status])
 	end
 end

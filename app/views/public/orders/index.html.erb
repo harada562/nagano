@@ -11,11 +11,13 @@
 	</tr>
 	<tr>
 		<% @orders.each do |order|%>
-			<td><%= order.created_at%></td>
+			<td><%= order.created_at.to_s(:public_datetime_jp)%></td>
 			<td><%= order.postal_code%> <br> <%=order.address%> <br><%=order.name%></td>
-			
-				</td>
-			<td><%= order.total_payment%></td>
+			<td><% order.order_details.each do |order_item| %>
+      			<%= order_item.item.name %><br>
+      		<% end %>
+      		</td>
+			<td><%= order.total_payment%>円</td>
 			<td><%= order.status%></td>
 			<td><%= link_to '表示する', public_order_path(order.id)%></td>
 	</tr>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 		resources :customers, only: [:index, :show, :edit, :update]
 		resources :genres, only: [:index, :create, :edit, :update]
 		resources :orders, only: [:index, :show, :update]
-		resources :order_ditails, only: [:update]
+		resources :order_details, only: [:update]
 		# admin のtopページ
 		# 注文件数が書かれているページ
 		get 'order/top', to:'orders#top'
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 		resources :items, only:[:index, :show]
 		resources :addresses,only:[:index, :edit, :create, :update, :destroy]
 		resources :cart_items, only:[:index, :update, :destroy, :create, :delete] do
-					collection do
+			collection do
 				delete 'destroy_all'
 			end
 		end

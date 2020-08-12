@@ -45,12 +45,14 @@
 
   <!-- 新しい住所 -->
     <h2><%= radio_button_tag :add, 3 %>新しいお届け先<h2>
+      <%= f.fields_for :addresse do |i| %>
         <p>郵便番号</p>
-          <%= f.text_field :postal_code, class: 'form-control' %>
+          <%= i.text_field :postal_code, class: 'form-control' %>
         <p>住所</p>
-          <%= f.text_field :address, class: 'form-control' %>
+          <%= i.text_field :address, class: 'form-control' %>
         <p>宛名</p>
-          <%= f.text_field :name, class: 'form-control' %>
+          <%= i.text_field :name, class: 'form-control' %>
+       <% end %>
 
 
 <!-- 配送料 一律[500円] -->

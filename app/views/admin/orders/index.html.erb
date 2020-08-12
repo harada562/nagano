@@ -10,8 +10,13 @@
 	</tr>
 	<tr>
 		<% @orders.each do |i|%>
-			<td><%= link_to i.created_at.to_s(:datetime_jp),  admin_order_path(i.id)%></td>
+			<td><%= link_to i.created_at.to_s(:admin_datetime_jp), admin_order_path(i.id)%></td>
 			<td><%= i.customer.first_name %><%= i.customer.last_name%></td>
+				<% @sum = 0 %>
+			<td><% i.order_details.each do |order_item| %>
+				<%  @total = @sum += order_item.amount %>
+			<% end %>
+				<%= @total %>個</td>
 			<td><%= i.status %></td>
 	</tr>
 		<% end %>

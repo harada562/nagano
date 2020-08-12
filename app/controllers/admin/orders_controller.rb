@@ -7,9 +7,7 @@ class Admin::OrdersController < ApplicationController
 	end
 
 	def show
-		@status = Order.new
 		@order = Order.find(params[:id])
-		@ditail = OrderDetail.new
 	end
 
 	def update
@@ -19,6 +17,8 @@ class Admin::OrdersController < ApplicationController
 	end
 	private
 	def order_params
-		params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status)
+		params.require(:order).permit(
+			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status,
+			order_details_attributes: [:order_id, :item_id, :amount, :price, :make_status])
 	end
 end
