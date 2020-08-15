@@ -1,5 +1,5 @@
 class Admin::CustomersController < ApplicationController
-	before_action :authenticate_admin!, only: [:index, :show, :edit, :update]
+	before_action :authenticate
 	def index
 		# Customerモデルの中のデータをすべて代入する
 		@customers = Customer.all
@@ -25,7 +25,7 @@ class Admin::CustomersController < ApplicationController
 	def customer_params
 		params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email, :is_deleted)
 	end
-	def admin
-		redirect_to new_admin_session_path
+	def authenticate
+  		redirect_to admin_session_path unless admin_signed_in?
 	end
 end

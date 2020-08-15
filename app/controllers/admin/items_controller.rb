@@ -1,5 +1,5 @@
 class Admin::ItemsController < ApplicationController
-	before_action :authenticate_admin!
+	before_action :authenticate
 	def index
 		# indexでは一覧を表示するため
 		# インスタンス変数kitemsにItemモデルの中にあるすべてののデータをを代入
@@ -42,6 +42,9 @@ class Admin::ItemsController < ApplicationController
 	private
 	def item_params
 		params.require(:item).permit(:genre_id, :name, :introduction, :price, :image, :is_active)
+	end
+	def authenticate
+  		redirect_to admin_session_path unless admin_signed_in?
 	end
 
 end

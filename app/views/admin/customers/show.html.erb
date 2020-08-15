@@ -1,6 +1,6 @@
 <%= render 'layouts/amin_header' %>
 <h1><%= @customer.first_name%><%= @customer.last_name%>さんの会員詳細</h1>
-<table>
+<table class="table">
 	<tr>
 		<th>顧客ID</th>
 		<td><%= @customer.id %>
@@ -32,5 +32,5 @@
 		<td><%= @customer.email %></td>
 	</tr>
 </table>
-<%= link_to '編集する',edit_admin_customer_path(@customer.id) %>
-<%= link_to '注文履歴一覧を見る',admin_orders_path(@customer.id) %>
+<%= link_to '編集する',edit_admin_customer_path(@customer.id) , class: "btn btn-success"%>
+<%= link_to '注文履歴一覧を見る',admin_orders_path(@customer.id), class: "btn btn-info" %>

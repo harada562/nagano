@@ -1,5 +1,5 @@
 class Public::CartItemsController < ApplicationController
-	
+	before_action :authenticate
 	def index
 		@carts = current_customer.cart_items.all
 		@cart = CartItem.new
@@ -14,7 +14,7 @@ class Public::CartItemsController < ApplicationController
 	def update
 		@cart = CartItem.find(params[:id])
 		@cart.update(cart_params)
-		redirect_to public_cart_items_path(@cart.id)
+		redirect_to public_cart_items_path
 	end
 
 	def destroy
@@ -33,5 +33,9 @@ class Public::CartItemsController < ApplicationController
 	private
 	def cart_params
 		params.require(:cart_item).permit(:item_id, :customer_id, :amount)
+	end
+	# customerがログインしていない場合はlogginページに遷移
+	def authenticate
+  		redirect_to customer_session_path unless customer_signed_in?
 	end
 end

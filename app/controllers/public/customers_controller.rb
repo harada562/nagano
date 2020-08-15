@@ -1,5 +1,5 @@
 class Public::CustomersController < ApplicationController
-	
+	before_action :authenticate
 	def show
 		@customer = current_customer
 	end
@@ -28,5 +28,9 @@ class Public::CustomersController < ApplicationController
     end
 	def customer_params
 		params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
+	end
+	# customerがログインしていない場合はlogginページに遷移
+	def authenticate
+  		redirect_to customer_session_path unless customer_signed_in?
 	end
 end

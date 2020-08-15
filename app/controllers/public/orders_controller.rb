@@ -1,11 +1,12 @@
 class Public::OrdersController < ApplicationController
-	
+	before_action :authenticate
+	# before_action :order_page, only: [:new, :confirm]
 	def thanks
 	end
 
 	def index
 		@orders = current_customer.orders
-		@items = @ordre
+		# @items = @ordre
 	end
 
 	def new
@@ -95,4 +96,14 @@ class Public::OrdersController < ApplicationController
 			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status,
 			order_details_attributes: [:order_id, :item_id, :amount, :price, :make_status])
 	end
+	# customerがログインしていない場合はlogginページに遷移
+	def authenticate
+  		redirect_to customer_session_path unless customer_signed_in?
+	end
+	# def order_page
+	# 	@carts = current_customer.cart_items.ids
+	# 	if @carts.ids.empty?
+	# 		public_items_path
+	# 	end
+	# end
 end

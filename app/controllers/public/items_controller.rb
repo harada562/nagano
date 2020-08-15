@@ -1,9 +1,8 @@
 class Public::ItemsController < ApplicationController
-	
 	def top
-		@item1 = Item.find(1)
-		@item2 = Item.find(2)
-		@item3 = Item.find(3)
+		@item1 = Item.find(10)
+		@item2 = Item.find(11)
+		@item3 = Item.find(9)
 	end
 
 	def index

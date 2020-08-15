@@ -1,6 +1,6 @@
 class Public::AddressesController < ApplicationController
 	# ログインしているユーザーのみアクション可能
-	before_action :authenticate_customer!, only: [:index, :create, :edit, :update]
+	before_action :authenticate
 	def index
 		@addresse = Addresse.new
 		@addresses =  Addresse.all
@@ -24,5 +24,9 @@ class Public::AddressesController < ApplicationController
 	private
 	def addresse_params
 		params.require(:addresse).permit(:name, :address, :postal_code, :customer_id)
+	end
+	# customerがログインしていない場合はlogginページに遷移
+	def authenticate
+  		redirect_to customer_session_path unless customer_signed_in?
 	end
 end

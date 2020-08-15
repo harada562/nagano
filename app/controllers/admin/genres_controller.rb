@@ -1,5 +1,5 @@
 class Admin::GenresController < ApplicationController
-	before_action :authenticate_admin!, only: [:index, :create, :edit, :update]
+	before_action :authenticate
 	def index
 		# 空のモデルを作成
 		@genre = Genre.new
@@ -31,5 +31,8 @@ class Admin::GenresController < ApplicationController
 	private
 	def genre_params
 		params.require(:genre).permit(:name, :is_active)
+	end
+	def authenticate
+  		redirect_to admin_session_path unless admin_signed_in?
 	end
 end

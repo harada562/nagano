@@ -1,5 +1,5 @@
 class Admin::OrdersController < ApplicationController
-	before_action :authenticate_admin!, only: [:top, :index, :show, :update]
+before_action :authenticate
 	def top
 	end
 
@@ -26,5 +26,9 @@ class Admin::OrdersController < ApplicationController
 	def update_order_params
 		params.require(:order).permit(
 			:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :status)
+	end
+
+	def authenticate
+  		redirect_to admin_session_path unless admin_signed_in?
 	end
 end

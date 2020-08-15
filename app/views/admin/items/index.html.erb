@@ -1,10 +1,8 @@
 <%= render 'layouts/amin_header' %>
-
-<%= link_to "商品新規登録", new_admin_item_path%>
-
+<%= link_to "商品新規登録", new_admin_item_path, class: "btn btn-warning"%>
 <h1>商品一覧</h1>
 
-<table>
+<table class="table">
 	<tr>
 		<th>商品id</th>
 		<th>商品名</th>

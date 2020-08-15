@@ -9,4 +9,6 @@ class OrderDetail < ApplicationRecord
 		制作中:2,
 		制作完了:3,
 	}
+	# 空白NG
+	validates :item_id, presence: true
 end
