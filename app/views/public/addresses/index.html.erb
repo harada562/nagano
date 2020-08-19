@@ -1,5 +1,6 @@
 <div class="container">
 	<%= render 'layouts/customer_header' %>
+	<%= render 'layouts/error_messages', model: @addresse%>
 	<h1>配送先登録/一覧</h1>
 	<%= form_for(@addresse, url:public_addresses_path, method: :post) do |f|%>
 	<div class="form-group">

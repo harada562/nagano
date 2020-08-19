@@ -9,6 +9,6 @@
 	<div class="customer_confirm_link">
 		<%= link_to "退会しない", root_path, class: "btn btn-primary"%>
 		<!-- リンク文字退会、これをクリックするpublic_customers_hide_pathに現在の使用者の情報をもたせて移動する、メソッドはputである-->
-		<%= link_to "退会する", public_customers_hide_path(current_customer), method: :put ,class: "btn btn-danger active"%>
+		<%= link_to "退会する",public_customer_path(current_customer.id), method: :delete,class: "btn btn-danger active"%>
 	</div>
 </div>

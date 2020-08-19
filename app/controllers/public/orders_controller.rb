@@ -15,6 +15,7 @@ class Public::OrdersController < ApplicationController
 		# addreseモデルが子モデルになる
 		# @order.build_address
 		@customer = current_customer
+		@address = Addresse.where(customer_id: current_customer.id)
 	end
 
 	def confirm
@@ -31,9 +32,9 @@ class Public::OrdersController < ApplicationController
 	          @order.address =  @address.address
 	          @order.name =  @address.name
 	    elsif @add == 3
-	    	@order.postal_code = params[:order][:addresse][:postal_code]
-        	@order.address = params[:order][:addresse][:address]
-        	@order.name = params[:order][:addresse][:name]
+	    	@order.postal_code = params[:order][:new_add][:postal_code]
+        	@order.address = params[:order][:new_add][:address]
+        	@order.name = params[:order][:new_add][:name]
 	    end
 		return if @order.valid?
 		render :new
@@ -63,7 +64,7 @@ class Public::OrdersController < ApplicationController
         	@order.address = params[:order][:new_add][:address]
         	@order.name = params[:order][:new_add][:name]
 		end
-		if Addresse.find_by(address: @order.address).nil?
+		if Addresse.find_by(addresses: @order.address).nil?
 	        @address = Addresse.new
 	        @address.postal_code = @order.postal_code
 	        @address.address = @order.address

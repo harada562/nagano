@@ -39,10 +39,11 @@
   </div>
 
   <div class="is_active customer_edit_radio">
-    <h3>有効</h3>
-    <%= f.radio_button :is_deleted, [false] %>
-    <h3>退会済み</h3>
-    <%= f.radio_button :is_deleted, [true] %>
+   <% unless @customer.deleted_at? %>
+        <%= link_to "アカウント削除", admin_customer_path(@customer.id),data: { confirm: "退会させますか?" }, method: :delete, class: "btn btn-info" %>
+        <% else %>
+        <%= link_to "アカウント復元", user_restore_admin_customer_url(@customer), method: :patch, class: "btn btn-info" %>
+        <% end %>
   </div>
 
   <div class="actions">

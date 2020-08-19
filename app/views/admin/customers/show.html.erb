@@ -4,11 +4,11 @@
 	<tr>
 		<th>顧客ID</th>
 		<td><%= @customer.id %>
-			<% if @customer.is_deleted == true %>
-				退会済み
-			<% else %>
+				<% if @customer.deleted_at.nil? %>
 				有効会員
-			<% end %>
+				<% else %>
+				退会済み
+				<% end %>
 		</td>
 	</tr>
 	<tr>

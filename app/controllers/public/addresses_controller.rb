@@ -8,8 +8,12 @@ class Public::AddressesController < ApplicationController
 
 	def create
 		@addresse = Addresse.new(addresse_params)
-		@addresse.save
-		redirect_to public_addresses_path
+		if @addresse.save
+			redirect_to public_addresses_path
+		else
+			@addresses =  Addresse.all
+			render "index"
+		end
 	end
 
 	def edit

@@ -1,0 +1,9 @@
+	<!-- エラーがある場合はすべてのメッセージを検証し表示しなさい -->
+<% if model.errors.any? %>
+		<h2><%= pluralize(model.errors.count, "error") %>prohibited this product from being saved:</h2>
+		<% model.errors.full_messages.each do |message| %>
+	<ul>
+		<li><%= message %></li>
+	</ul>
+	<% end %>
+<% end %>

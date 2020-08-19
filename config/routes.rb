@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   	namespace :admin do
 		resources :items, only: [:index, :new, :create, :show, :edit, :update]
-		resources :customers, only: [:index, :show, :edit, :update]
+		resources :customers do
+			member do
+    			patch 'user_restore'
+   			end
+   		end
 		resources :genres, only: [:index, :create, :edit, :update]
 		resources :orders, only: [:index, :show, :update]
 		resources :order_details, only: [:update]
@@ -21,7 +25,7 @@ Rails.application.routes.draw do
 		get 'item/top', to:'items#top'
 		get 'order/thanks', to:'orders#thanks'
 		get 'customer/confirm', to:'customers#confirm'
-		put "/customers/:id/hide" => "customers#hide", as: 'customers_hide'
+		# put "/customers/:id/is_delete" => "customers#id_delete", as: 'customers_is_delete'
 		delete "cart_item/:id/destroy_all", to: "cart_items#destroy_all"
 		resources :customers
 		resources :items, only:[:index, :show]

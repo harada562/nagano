@@ -17,10 +17,10 @@
 				<%= c.first_name%><%= c.last_name%></td>
 			<% end %>
 			<td><%= c.email%></td>
-			<td><% if c.is_deleted == true %>
-				退会済み
-				<% else %>
+			<td><% if c.deleted_at.nil? %>
 				有効
+				<% else %>
+				退会済み
 				<% end %>
 			</td>
 		<% end %>

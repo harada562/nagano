@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    public:
+      addresse:
+        name: 宛名
+        address: 住所
+        postal_code: 郵便番号
+        customer_id: ユーザー番号

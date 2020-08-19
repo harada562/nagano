@@ -62,7 +62,7 @@
 	<% end %>
 	<!-- 戻り -->
 	<div class="order_confirm_return">
-		<%= form_for(@order, url: new_public_order_path(@customer)) do |f|%>
+		<%= form_for(@order, url: new_public_order_path) do |f|%>
 			<%= f.hidden_field :customer_id%>
 			<%= f.hidden_field :shipping_cost%>
 			<%= f.hidden_field :total_payment%>

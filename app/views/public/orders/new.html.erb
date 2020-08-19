@@ -1,4 +1,4 @@
-<div class="container public_order_new">
+<div class="public_order_new">
 	<%= render 'layouts/customer_header' %>
 	<h1>注文情報入力</h1>
 
@@ -30,32 +30,32 @@
 		</tr>
 		<% end %>
 	</table>
-	<div class="row">
 		<div class="col-lg-5">
-			<%= form_for(@order, url: confirm_public_orders_path(@order.id)) do |f| %>
-			<div class="order_new_radio">
-				<%= radio_button_tag :add, 1, checked: true, checked: "checked" %><p>ご自身の住所</p>
-			</div>
+			<%= form_for(@order, url: confirm_public_orders_path) do |f| %>
+			<!-- <div class="order_new_radio"> -->
+				<p><strong>ご自身の住所</strong></p>
+				<div><%= radio_button_tag :add, 1, checked: true, checked: "checked" %></div>
+			<!-- </div> -->
 			<p>郵便番号</p><%= @customer.postal_code %><br>
 			<p>住所</p><%= @customer.address %><br>
 			<p>宛名</p><%= @customer.first_name %><%= @customer.last_name %><br>
-		</div>
-		<div class="col-lg-5">
+		<!-- <div class="col-lg-5"> -->
 		  <!-- 登録済み住所 -->
 		      <!-- f.select(メソッド名, 現在のcustomerのidに紐づくAddressseモデル,map.{|a|の中に紐づくデータが入る。そのあとの記述は送信したいデータの指定} -->
-		      <div class="order_new_radio">
-		      <%= radio_button_tag :add, 2 %><p>登録住所から選択</p>
-		      </div>
+		      <!-- <div class="order_new_radio"> -->
+		      <p><strong>登録住所から選択</strong></p>
+		      <div><%= radio_button_tag :add, 2 %></div>
 		     <%= f.select :id, Addresse.where(customer_id: current_customer.id).map { |a| ["郵便番号" +a.postal_code + "住所" + a.address + "宛名" +a.name, a.id]} %>
-		</div>
-    </div>
+		      <!-- </div> -->
+		<!-- </div> -->
 
 	  <!-- 新しい住所 -->
-	  <div class="order_new_address">
-	  	<div class="order_new_add3">
-	    	<%= radio_button_tag :add, 3 %><p>新しいお届け先</p>
-		</div>
-	      <%= f.fields_for :addresse do |i| %>
+	  <!-- <div class="order_new_address"> -->
+	  	<div>
+	    	<p><strong>新しいお届け先</strong></p>
+	    	<div><%= radio_button_tag :add, 3 %></div>
+	      <%= f.fields_for :new_add do |i| %>
+		<!-- </div> -->
 	        <p>郵便番号</p>
 	          <%= i.text_field :postal_code, class: 'form-control' %>
 	        <p>住所</p>
