@@ -64,7 +64,8 @@ class Public::OrdersController < ApplicationController
         	@order.address = params[:order][:new_add][:address]
         	@order.name = params[:order][:new_add][:name]
 		end
-		if Addresse.find_by(addresses: @order.address).nil?
+		@order.save
+		if Addresse.find_by(address: @order.address).nil?
 	        @address = Addresse.new
 	        @address.postal_code = @order.postal_code
 	        @address.address = @order.address
@@ -82,7 +83,6 @@ class Public::OrdersController < ApplicationController
 			order_detail.save
 			cart_item.destroy #order_itemに情報を移したらcart_itemは消去
 		end
-		@order.save
 		redirect_to complete_public_orders_path
 	end
 
