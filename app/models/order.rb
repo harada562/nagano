@@ -16,13 +16,13 @@ class Order < ApplicationRecord
 		発送済み:4
 	}
 
-	# # 空白NG
-	# validates :address, presence: true
-	# validates :name, presence: true
-	# validates :customer_id, presence: true
-	# validates :name, presence: true
-	# # 文字NG
-	# validates :postal_code, numericality: true, presence: true
+	# 空白NG
+	validates :address, presence: true
+	validates :name, presence: true
+	validates :customer_id, presence: true
+	validates :name, presence: true
+	# 文字NG
+	validates :postal_code, numericality: true, presence: true
 
 
 
